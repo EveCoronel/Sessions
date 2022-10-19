@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.6",
+    "knex": "^2.3.0",
+    "moment": "^2.29.4",
+    "mysql": "^2.18.1",
+    "socket.io": "^4.5.3",
+    "sqlite3": "^5.1.2"
+  },
+  "name": "firstdb",
+  "version": "1.0.0",
+  "main": "knexfile.js",
+  "scripts": {
+    "start": "node main.js",
+    "start-dev": "nodemon main.js",
+    "make-migration": "knex migrate:make",
+    "migrate": "knex migrate:up",
+    "migrate-rollback": "knex migrate:rollback",
+    "list-migrations": "knex migrate:list"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

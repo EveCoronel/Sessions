@@ -1,0 +1,16 @@
+<div style="display: flex;justify-content: center;align-items: center;flex-direction: column;">
+<table style="width: 50%;border-radius: 10%;background-color: azure;" >
+    <tr>
+     <th>Nombre</th>
+     <th>Precio</th>
+     <th>Foto</th>
+    </tr>
+{{#each products}}
+<tr>
+    <td>{{this.title}}</td>
+    <td>{{this.price}}</td>
+    <td> <img width="100px" height="80px" src={{this.thumbnail}} alt={{this.title}}></td>
+</tr>
+{{/each}}
+</table>
+</div>
