@@ -1,6 +1,18 @@
 // Socket server connection
 const socket = io()
 
+// Profile logout
+
+/* const logoutBtn = document.getElementById('btn-logout')
+
+logoutBtn.addEventListener('submit', (event) => {
+    event.preventDefault()
+
+    
+}) */
+
+
+
 // Products logic
 const productTable = document.getElementById('products-table')
 const nameInput = document.getElementById('name-input')
@@ -11,12 +23,11 @@ const imageInput = document.getElementById('image-input')
 const submitBtn = document.getElementById('products-form')
 
 socket.on('products-history', (products) => {
-
-    fetch('./views/history.hbs')
+    
+    fetch('./views/partials/history.hbs')
         .then((data) => data.text())
         .then((serverTemplate) => {
             const template = Handlebars.compile(serverTemplate);
-            console.log(products)
             const html = template({ products });
             productTable.innerHTML = html;
         })

@@ -5,10 +5,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Socket</title>
+    <link rel="stylesheet" href="../../../public/styles.css">
+    <title>Optic Store</title>
 </head>
 
 <body>
+    <nav>
+
+    </nav>
+    <div>
+        {{#if user}}
+        {{>profile}}
+        {{/if}}
+    </div>
     <div style="display: flex; flex-direction: column; align-items: center;">
         <div>
             <h3 style="text-align: center; margin-top: 16px;"> Agrega un producto! </h3>
@@ -50,9 +59,14 @@
             </div>
         </form>
     </div>
-
-
-    <div id="products-table"> </div>
+    <div id="products-table">
+        {{#if products}}
+        {{>history}}
+        {{/if}}
+        {{#else}}
+        <span>No hay productos</span>
+        {{/else}}
+    </div>
     <br>
     <br>
     <div id="chat-div">
@@ -63,24 +77,17 @@
         </form>
         <br>
         <br>
-    
-        <div id="messages-div">
-
-        </div>
-
+        <div id="messages-div"> </div>
         <form id="chat-form" action="">
             <textarea name="message" id="message-text" cols="40" rows="10"></textarea>
-            
         </form>
-
     </div>
+    <footer>
 
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="./index.js"></script>
+    </footer>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="../../index.js"></script>
 
 </html>

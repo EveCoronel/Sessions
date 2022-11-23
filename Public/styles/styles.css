@@ -1,0 +1,20 @@
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    background-color: #F3F1F5;
+    justify-content: center;
+    width: 450px;
+    align-items: center;
+    height: 250px;
+    padding: 5%;
+    margin: 5%;
+}
+
+.loginDiv{
+    display: flex;
+    justify-content: center;
+}
+
+.nameInput{
+    border: 1px solid #7F7C82;
+}
