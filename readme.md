@@ -13,7 +13,7 @@ Npm init --y
 Luego instala las dependencias requeridas
 
 ```
-Npm i express moment sqlite3 socket.io mysql knex express-handlebars
+Npm i
 ```
 
 ## Iniciacion ⚙️
