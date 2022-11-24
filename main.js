@@ -9,11 +9,9 @@ const { Server: HttpServer } = require('http');
 const { Server: SocketServer } = require('socket.io')
 const PORT = process.env.PORT || 8080
 const MongoStore = require('connect-mongo');
-const auth = require('./middlewares/auth');
+const { webAuth } = require('./middlewares/auth');
 const errorMiddleware = require('./middlewares/error.middleware');
-const { engine } = require('express-handlebars')
 const path = require('path');
-
 
 // Instanciamiento 
 const app = express();
@@ -32,18 +30,15 @@ app.use(session({
     store: MongoStore.create({
         mongoUrl: 'mongodb+srv://ecommerce:kAOMSAA0WyK5ITw5@cluster0.hjesg.mongodb.net/ecommerce?retryWrites=true&w=majority',
     }),
+    rolling: true,
+    cookie: {
+        maxAge: 600000
+    }
 }));
 // Views
 
-app.engine('hbs', engine({
-    extname: 'hbs',
-    defaultLayout: 'index.hbs',
-    layoutsDir: path.resolve(__dirname, './Public/views/layouts'),
-    partialsDir: path.resolve(__dirname, './Public/views/partials')
-}))
-
-app.set('views', './Public/views/layouts')
-app.set('view engine', 'hbs')
+app.set('views', './views/pages');
+app.set('view engine', 'ejs');
 
 //
 const products = new Products()
@@ -100,18 +95,13 @@ io.on('connection', (socket) => {
     })
 })
 
-app.get('/', async (req, res) => {
+app.get('/', webAuth, async (req, res) => {
     const user = await req.session.user
-    let dbProducts = []
-    await products.getAll().then((data) => {
-        dbProducts = data
-    });
-    console.log(user)
-    if (user) {
-        res.render('index', { products: dbProducts, user: user })
-    } else {
-        res.sendFile(__dirname + '/public/login.html')
-    }
+    res.render(path.join(process.cwd(), 'Public/views/pages/index.ejs'), { user: user })
+});
+
+app.get('/login', (req, res) => {
+    res.sendFile(__dirname + '/public/login.html')
 });
 
 app.post('/login', (req, res) => {
@@ -128,17 +118,30 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/logout', async (req, res) => {
+    const user = req.session?.user
+    console.log('Log de prueba', user)
+    if (user.name) {
+        req.session.destroy(err => {
+            if (!err) {
+                res.render(path.join(process.cwd(), 'Public/views/pages/logout.ejs'), { name: user.name })
 
+            } else {
+                res.redirect('/')
+            }
+        })
+    } else {
+        res.redirect('/')
+    }
 });
 
 app.get('/logout', async (req, res) => {
     res.redirect('/')
 });
 
-app.get('/products', (req, res) => {
+/* app.get('/products', (req, res) => {
     res.sendFile(__dirname + '/public/views/layouts/index.hbs')
 })
-
+ */
 app.post('/products', (req, res) => {
     products.save(req.body)
     res.redirect('/products')

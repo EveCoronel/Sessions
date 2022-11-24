@@ -13,19 +13,16 @@
     <nav>
 
     </nav>
-    {{#if name}}
-    <h3>¡Hasta luego!{{name}}</h3>
-    <script>
-        setTimeout(() => {
-            location.href = '/login'
-        }, 2000)
-    </script>
-    {{/if}}
-    {{#else}}
-    <div>
-        {{#if user}}
-        {{>profile}}
-        {{/if}}
+    <div class="">
+        <h2 class="">
+            Bienvenido, <%= user.name %>
+                <form id="logout-form" action="/logout" method="POST">
+                    <button type="submit">
+                        Logout
+                    </button>
+                </form>
+
+        </h2>
     </div>
     <div style="display: flex; flex-direction: column; align-items: center;">
         <div>
@@ -68,14 +65,7 @@
             </div>
         </form>
     </div>
-    <div id="products-table">
-        {{#if products}}
-        {{>history}}
-        {{/if}}
-        {{#else}}
-        <span>No hay productos</span>
-        {{/else}}
-    </div>
+    <div id="products-table"></div>
     <br>
     <br>
     <div id="chat-div">
@@ -91,7 +81,6 @@
             <textarea name="message" id="message-text" cols="40" rows="10"></textarea>
         </form>
     </div>
-    {{/else}}
     <footer>
 
     </footer>

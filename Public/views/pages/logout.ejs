@@ -12,8 +12,9 @@
 
 <body>
     <div class="logoutDiv">
-        <h3>¡Hasta luego {{user.name}}!</h3>
+        <h3>¡Hasta luego <%=name%>!</h3>
     </div>
-
+    <script>setTimeout(() => { location.href = '/' }, 2000)</script>
 </body>
+
 </html>
